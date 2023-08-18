@@ -1,0 +1,45 @@
+
+<div class="container">
+    <h1>Tableau des devis </h1>
+    
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>NUM</th>
+          <th>Date de generation</th>
+          <th>Date d'expiration</th>
+          <th>Client</th>
+          <th>Produit</th>
+          <th class="status">Statut</th>
+          <th>Download</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let quotation of quotations; let i = index" (click)="onSelect(quotation)" [class.selected]="selectedQuotation === quotation">
+          <td>{{ quotation.numDevis }}</td>
+          <td>{{ quotation.dateDebut.slice(0,10) }}</td>
+          <td>{{ quotation.dateExpiration.slice(0,10) }}</td>
+          <td>{{ quotation.client.nom }} {{quotation.client.prenom}}</td>
+          <td>{{ productsDisplay[i] }}</td>
+          <td [ngClass]="quotation.statut === 'validé' ? 'valid-status' : 'invalid-status'">
+            <span class="status-icon">
+                <mat-icon>{{ quotation.statut === 'validé' ? 'check_circle' : 'cancel' }}</mat-icon>
+            </span>
+            {{ quotation.statut === 'validé' ? 'Validé' : 'Non Validé' }} 
+          </td>
+          <td>
+            <button class="custom-button"  mat-icon-button matTooltip="Télecharger devis" (click)="generateQuotation(quotation)">
+              <mat-icon>download</mat-icon>
+              
+            </button>
+          </td>
+      </tbody>
+    </table>
+    </div>
+    <div class="selected-button-container" >
+    <button (click)="navigateToUpdateQuotation()" *ngIf="selectedQuotation">Modifier</button>
+
+    <button (click)="validatePurchaseOrder()" *ngIf="selectedQuotation">Valider</button>
+    </div>
+    

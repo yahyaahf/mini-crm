@@ -1,0 +1,110 @@
+.form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  text-align: center;
+}
+
+/* Styling for form groups */
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+select, input[type="date"], textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+/* Styling for the table */
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #ddd;
+}
+
+.checkbox-cell {
+  width: 5%;
+  text-align: center;
+}
+
+.quantity-cell {
+  width: 15%;
+  text-align: center;
+}
+
+button[type="submit"] {
+  display: block;
+  margin: 0 auto;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.success-message {
+  background-color: #4caf50; /* Green background color */
+  color: #ffffff; /* White text color */
+  padding: 10px; /* Padding around the message */
+  border-radius: 4px; /* Rounded corners */
+  position: fixed; /* Position the message */
+  top: 4%; /* Place the top edge of the message at the vertical center */
+  left: 50%; /* Place the left edge of the message at the horizontal center */
+  transform: translate(-50%, -50%); /* Center the message using transform */
+  text-align: center; /* Center the message text */
+  font-weight: bold; /* Bold font weight */
+  z-index: 9999; /* Ensure the message is on top of other elements */
+  display: block; /* Display as a block element to take up the full width */
+}
+
+.hidden {
+  display: none;
+}

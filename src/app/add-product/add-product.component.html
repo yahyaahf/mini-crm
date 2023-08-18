@@ -1,0 +1,20 @@
+<div class="form">
+    <form (submit)="addProduct()">
+        <label for="intitule">Intitulé:</label>
+        <input  type="text" id="intitule" name="intitule" [(ngModel)]="product.intitule" required>
+    
+        <label for="categorie">Categorie:</label>
+        <input  type="text" id="categorie" name="categorie" [(ngModel)]="product.categorie" required>
+        
+        <label for="description">Description:</label>
+        <input  type="text" id="description" name="description" [(ngModel)]="product.description" required>
+
+        <label for="prix">Prix:</label>
+        <input  type="text" id="prix" name="prix" [(ngModel)]="product.prix" required>
+      
+        <button type="submit">Ajouter Produit</button>
+      </form>
+    </div>
+    <div [ngClass]="{'success-message': isProductAdded, 'hidden': !isProductAdded}">
+      Produit ajouté avec succés!
+    </div>

@@ -1,0 +1,39 @@
+
+<div class="container">
+    <h1>Tableau des produits </h1>
+    
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Categorie</th>
+          <th>Intitulé</th>
+          <th>Prix</th>
+          <th>Description</th>
+          <th>Devis</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products" (click)="onSelect(product)" [class.selected]="selectedProduct === product">
+          <td>{{ product.id }}</td>
+          <td>{{ product.categorie }}</td>
+          <td>{{ product.intitule }}</td>
+          <td>{{ product.prix }} €</td>
+          <td>{{ product.description }}</td>
+          <td>
+            <button class="generate-quotation-button" mat-icon-button matTooltip="Génerer devis" (click)="generateQuotation(product.id)">
+              <mat-icon>add_circle</mat-icon>
+              
+            </button>
+          </td>
+      </tbody>
+    </table>
+    </div>
+    <div class="selected-button-container" >
+    <button (click)="navigateToAddProduct()"  class="right-button" >
+         Ajouter
+    </button>
+    <button (click)="navigateToUpdateProduct()" *ngIf="selectedProduct">Modifier</button>
+    </div>
+    

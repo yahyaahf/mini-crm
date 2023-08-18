@@ -1,0 +1,36 @@
+
+<div class="container">
+    <h1>Tableau des bons de commandes </h1>
+    
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>NUM</th>
+          <th>Date de generation</th>
+          <th>Date d'expiration</th>
+          <th>Client</th>
+          <th>Produit</th>
+          <th>Download</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let purchaseOrder of purchaseOrders; let i = index" (click)="onSelect(purchaseOrder)" [class.selected]="selectedPurchaseOrder === purchaseOrder">
+          <td>{{ purchaseOrder.numBonCommande }}</td>
+          <td>{{ purchaseOrder.dateDebut.slice(0,10) }}</td>
+          <td>{{ purchaseOrder.dateExpiration.slice(0,10) }}</td>
+          <td>{{ purchaseOrder.client.nom }} {{purchaseOrder.client.prenom}}</td>
+          <td>{{ productsDisplay[i] }}</td>
+          <td>
+            <button class="custom-button"  mat-icon-button matTooltip="Télecharger devis" (click)="generatePurchaseOrder(purchaseOrder)">
+              <mat-icon>download</mat-icon>
+              
+            </button>
+          </td>
+      </tbody>
+    </table>
+    </div>
+    <div class="selected-button-container" >
+    <button (click)="navigateToUpdatePurchaseOrder()" *ngIf="selectedPurchaseOrder">Modifier</button>
+    </div>
+    

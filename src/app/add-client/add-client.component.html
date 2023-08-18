@@ -1,0 +1,25 @@
+<div class="form">
+<form  (submit)="addClient()">
+    <label for="nom">nom:</label>
+    <input type="text" id="nom" name="nom" [(ngModel)]="client.nom" required pattern="[A-Za-zÀ-ÖØ-öø-ÿ\s]*">
+
+    <label for="Prénom">Prénom:</label>
+    <input type="text" id="prenom" name="prenom" [(ngModel)]="client.prenom" required pattern="[A-Za-z0-9\s]*">
+    
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" [(ngModel)]="client.email" required>
+  
+    <label for="phone">Phone:</label>
+    <input type="text" id="phone" name="phone" [(ngModel)]="client.telephone" required pattern="[0-9]*">
+
+    <label for="Entreprise">Entreprise:</label>
+    <input type="text" id="entreprise" name="entreprise" [(ngModel)]="client.entreprise" required pattern="[A-Za-z0-9\s]*">
+    
+    <!-- Add more form fields for other properties as needed -->
+  
+    <button type="submit">Ajouter Client</button>
+  </form>
+</div>
+<div [ngClass]="{'success-message': isClientAdded, 'hidden': !isClientAdded}">
+  Client ajouté avec succés!
+</div>

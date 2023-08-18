@@ -1,0 +1,24 @@
+<div class="form" *ngIf="client">
+<form (submit)="updateClient()">
+    <label for="nom">nom:</label>
+    <input  type="text" id="nom" name="nom" [(ngModel)]="client.nom" required>
+
+    <label for="Prénom">Prénom:</label>
+    <input type="text" id="prenom" name="prenom" [(ngModel)]="client.prenom" required>
+    
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" [(ngModel)]="client.email" required>
+  
+    <label for="phone">Phone:</label>
+    <input type="text" id="phone" name="phone" [(ngModel)]="client.telephone" required>
+
+    <label for="Entreprise">Entreprise:</label>
+    <input type="text" id="entreprise" name="entreprise" [(ngModel)]="client.entreprise" required>
+    
+  
+    <button type="submit">Modifier Client</button>
+  </form>
+</div>
+<div [ngClass]="{'success-message': isClientUpdated, 'hidden': !isClientUpdated}">
+    Client modifié avec succés!
+  </div>

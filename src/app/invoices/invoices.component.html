@@ -1,0 +1,52 @@
+
+<div class="container">
+    <h1>Tableau des Factures </h1>
+    
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>NUM</th>
+          <th>Date d'émission</th>
+          <th>Date d'écheance</th>
+          <th>Client</th>
+          <th class="status">Statut</th>
+          <th>Download</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let invoice of invoices; let i = index" (click)="onSelect(invoice)" [class.selected]="selectedInvoice === invoice">
+          <td>{{ invoice.numFacture }}</td>
+          <td>
+            <ng-container *ngIf="invoice.dateEcheance; else notSent">
+              {{ invoice.dateEcheance.slice(0, 10) }}
+            </ng-container>
+            <ng-template #notSent>
+              pas encore envoyé
+            </ng-template>
+          </td>
+          <td>
+            <ng-container *ngIf="invoice.dateExpiration; else notSent">
+              {{ invoice.dateExpiration.slice(0, 10) }}
+            </ng-container>
+            <ng-template #notSent>
+              pas encore envoyé
+            </ng-template>
+          </td>
+          <td>{{ invoice.client.nom }} {{invoice.client.prenom}}</td>
+          <td> {{invoice.statut }}</td>
+          <td>
+            <button class="custom-button"  mat-icon-button matTooltip="Télecharger Facture" (click)="generateInvoice(invoice)">
+              <mat-icon>download</mat-icon>
+              
+            </button>
+          </td>
+      </tbody>
+    </table>
+    </div>
+    <div class="selected-button-container" >
+    <button (click)="navigateToUpdateInvoice()" *ngIf="selectedInvoice">Modifier</button>
+
+    <button (click)="validateInvoice()" *ngIf="selectedInvoice">Valider</button>
+    </div>
+    

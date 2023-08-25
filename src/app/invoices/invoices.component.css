@@ -130,3 +130,76 @@
 .status {
   width : 125px ;
 }
+
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.generated-status {
+  background-color: #f0ad4e;
+  color: white;
+}
+
+.sent-status {
+  background-color: #5bc0de;
+  color: white;
+}
+
+.validated-status {
+  background-color: #5cb85c;
+  color: white;
+}
+
+.paid-status {
+  background-color: #d9534f;
+  color: white;
+}
+
+.unknown-status {
+  background-color: gray;
+  color: white;
+}
+
+.payment-section {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.payment-section label {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.payment-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.payment-input input {
+  width: 120px;
+  margin-bottom: 10px;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.payment-input button {
+  padding: 6px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.payment-input button:hover {
+  background-color: #0056b3;
+}

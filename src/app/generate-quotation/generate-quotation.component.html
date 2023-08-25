@@ -1,5 +1,5 @@
 <div class="form">
-  <h1>Generate Quotation</h1>
+  <h1>Génerer Devis</h1>
   <form (submit)="onSubmit()">
     <div class="form-group">
       <label for="client">Client:</label>
@@ -38,7 +38,7 @@
       <textarea id="description" name="description" [(ngModel)]="quotation.description" rows="4" required></textarea>
     </div>
     
-    <button type="submit">Generate Quotation</button>
+    <button type="submit">Génerer Devis</button>
   </form>
 </div>
 <div [ngClass]="{'success-message': isQuotationAdded, 'hidden': !isQuotationAdded}">

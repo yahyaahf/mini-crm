@@ -18,6 +18,14 @@
         <tr *ngFor="let invoice of invoices; let i = index" (click)="onSelect(invoice)" [class.selected]="selectedInvoice === invoice">
           <td>{{ invoice.numFacture }}</td>
           <td>
+            <ng-container *ngIf="invoice.dateEmission; else notSent">
+              {{ invoice.dateEmission.slice(0, 10) }}
+            </ng-container>
+            <ng-template #notSent>
+              pas encore envoyé
+            </ng-template>
+          </td>
+          <td>
             <ng-container *ngIf="invoice.dateEcheance; else notSent">
               {{ invoice.dateEcheance.slice(0, 10) }}
             </ng-container>
@@ -25,16 +33,16 @@
               pas encore envoyé
             </ng-template>
           </td>
-          <td>
-            <ng-container *ngIf="invoice.dateExpiration; else notSent">
-              {{ invoice.dateExpiration.slice(0, 10) }}
-            </ng-container>
-            <ng-template #notSent>
-              pas encore envoyé
-            </ng-template>
-          </td>
           <td>{{ invoice.client.nom }} {{invoice.client.prenom}}</td>
-          <td> {{invoice.statut }}</td>
+          <td> 
+            <ng-container [ngSwitch]="invoice.statut">
+              <span *ngSwitchCase="'généré'" class="status-badge generated-status">Généré</span>
+              <span *ngSwitchCase="'envoyé'" class="status-badge sent-status">Envoyé</span>
+              <span *ngSwitchCase="'validé'" class="status-badge validated-status">Validé</span>
+              <span *ngSwitchCase="'payé'" class="status-badge paid-status">Payé</span>
+              <span *ngSwitchDefault class="status-badge unknown-status">Inconnu</span>
+            </ng-container>
+          </td>
           <td>
             <button class="custom-button"  mat-icon-button matTooltip="Télecharger Facture" (click)="generateInvoice(invoice)">
               <mat-icon>download</mat-icon>
@@ -45,8 +53,30 @@
     </table>
     </div>
     <div class="selected-button-container" >
-    <button (click)="navigateToUpdateInvoice()" *ngIf="selectedInvoice">Modifier</button>
-
-    <button (click)="validateInvoice()" *ngIf="selectedInvoice">Valider</button>
+      <button (click)="navigateToUpdateInvoice()" *ngIf="selectedInvoice && selectedInvoice.statut !== 'payé'">
+        Modifier
+      </button>
+    
+      <button
+        (click)="sendInvoice()"
+        *ngIf="selectedInvoice && selectedInvoice.statut === 'généré'"
+      >
+        Envoyer
+      </button>
+    
+      <button
+        (click)="validateInvoice()"
+        *ngIf="selectedInvoice && selectedInvoice.statut === 'envoyé'"
+      >
+        Valider
+      </button>
+    
+      <div *ngIf="selectedInvoice && selectedInvoice.statut === 'validé'" class="payment-section">
+        <label for="paymentAmount">Montant du paiement (Montant restant {{restAmount}}):</label>
+        <div class="payment-input">
+          <input type="number" id="paymentAmount" [(ngModel)]="paymentAmount" placeholder="Enter amount">
+          <button (click)="payInvoice()">Payer</button>
+        </div>
+      </div>
     </div>
     

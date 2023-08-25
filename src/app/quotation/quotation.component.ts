@@ -106,12 +106,7 @@ export class QuotationComponent implements OnInit {
 
     this.http.post<any>('http://localhost:8080/api/invoices/add/'+this.selectedQuotation.id, null).subscribe(
       response => {
-        console.log('Invoice added successfully:', response);
-        
-        
-        
-        
-        
+        console.log('Invoice added successfully:', response); 
       },
       error => {
         console.error('Error adding Invoice:', error);
@@ -121,6 +116,16 @@ export class QuotationComponent implements OnInit {
     
   }
 
+  deleteQuotation() {
+    this.http.delete<any>('http://127.0.0.1:8080/api/quotations/delete/' + this.selectedQuotation.id).subscribe(
+      (data) => {
+        console.log("devis suprrimé avec succée " );
+      },
+      (error) => {
+        console.error('Error deletting product:', error);
+      }
+    );
+    }
   
 
   generateQuotation(quotation: any) {
@@ -144,11 +149,11 @@ export class QuotationComponent implements OnInit {
     doc.text(`Téléphone: ${quotation.client.telephone}`, 15, 80);
     doc.text(`Email: ${quotation.client.email}`, 15, 90);
 
-    const enterpriseName = 'Your Enterprise Name';
-    const enterpriseAddress = '123 Main Street, City, Country';
+    const enterpriseName = 'FINANCIAL DERIVATIVES CONSULTING';
+    const enterpriseAddress = '19 RUE DES LILAS, ARGENTEUIL, 95100, France';
     doc.text(enterpriseName, doc.internal.pageSize.width - 15, 70, { align: 'right' });
     doc.text(enterpriseAddress, doc.internal.pageSize.width - 15, 80, { align: 'right' });
-    const columns = ['Désignation', 'Description', 'Quantité', 'TVA', 'Prix unitaire'];
+    const columns = ['Désignation', 'Description', 'Quantité', 'TVA', 'Prix unitaire (€)'];
     const data = this.listProduit.map((product: any, index: number) => {
       const values = quotation.quantities.split(',').map((q: string) => parseInt(q));
       const quantity : string = values[index];
@@ -185,17 +190,17 @@ export class QuotationComponent implements OnInit {
       const quantityValues = quotation.quantities.split(',').map((q: string) => parseInt(q));
   
       smallTableData = [
-        ['Montant', `${quantityValues.reduce((sum: number, quantity: string, index: number) => sum + parseInt(quantity) * data[index][4], 0)}`],
-        ['Montant TVA', `${quantityValues.reduce((sum: number, quantity: string, index: number) => sum + parseInt(quantity) * data[index][4] * quotation.tva, 0)}`],
-        ['Montant TTC', `${quantityValues.reduce((sum: number, quantity: string, index: number) => sum + parseInt(quantity) * data[index][4] * (1 + quotation.tva), 0)}`],
+        ['Montant (€)', `${quantityValues.reduce((sum: number, quantity: string, index: number) => sum + parseInt(quantity) * data[index][4], 0)}`],
+        ['Montant TVA (€)', `${quantityValues.reduce((sum: number, quantity: string, index: number) => sum + parseInt(quantity) * data[index][4] * quotation.tva, 0)}`],
+        ['Montant TTC (€)', `${quantityValues.reduce((sum: number, quantity: string, index: number) => sum + parseInt(quantity) * data[index][4] * (1 + quotation.tva), 0)}`],
       ];
     } else {
       // If there's a single quantity
       const quantity = parseInt(quotation.quantities);
       smallTableData = [
-        ['Montant', `${quantity * data[0][4]}`],
-        ['Montant TVA', `${quantity * data[0][4] * quotation.tva}`],
-        ['Montant TTC', `${quantity * data[0][4] * (1 + quotation.tva)}`],
+        ['Montant (€)', `${quantity * data[0][4]}`],
+        ['Montant TVA (€)', `${quantity * data[0][4] * quotation.tva}`],
+        ['Montant TTC (€)', `${quantity * data[0][4] * (1 + quotation.tva)}`],
       ];
     }
 

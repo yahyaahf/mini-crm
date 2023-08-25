@@ -1,0 +1,27 @@
+<div class="form" *ngIf="invoice">
+    <form (submit)="updateInvoice()">
+       
+        
+        <div class="form-group">
+            <label for="expirationDate">Expiration Date:</label>
+            <input type="date" id="expirationDate" name="expirationDate" [(ngModel)]="invoice.dateEcheance"  required>
+        </div>
+
+        <div class="form-group">
+            <label for="statut">Statut:</label>
+            <select id="statut" name="statut" [(ngModel)]="selectedStatut" [(ngModel)]="invoice.statut" required>
+                <option *ngFor="let statut of statuts" [value]="statut">{{statut}}</option>
+            </select>
+        </div>
+        
+      
+        <button type="submit">Modifier Facture</button>
+
+        
+    </form>
+    </div>
+    <div [ngClass]="{'success-message': isInvoiceUpdated, 'hidden': !isInvoiceUpdated}">
+        Devis modifié avec succés!
+    </div>
+
+    

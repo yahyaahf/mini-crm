@@ -54,6 +54,7 @@ export class PurchaseOrderComponent {
     this.http.get<any>('http://127.0.0.1:8080/api/products/purchaseOrders/' + this.selectedPurchaseOrder.id).subscribe(
       (data) => {
         this.listProduit = data;
+        console.log(this.listProduit);
       },
       (error) => {
         console.error('Error fetching products:', error);
@@ -81,6 +82,17 @@ export class PurchaseOrderComponent {
     return '';
   }
 
+  deletePurchaseOrder() {
+    this.http.delete<any>('http://127.0.0.1:8080/api/purchaseOrders/delete/' + this.selectedPurchaseOrder.id).subscribe(
+      (data) => {
+        console.log("Bon suprrimé avec succée " + data);
+      },
+      (error) => {
+        console.error('Error fetching products:', error);
+      }
+    );
+  }
+
   generatePurchaseOrder(purchaseOrder: any) {
     const doc = new jsPDF();
 
@@ -102,11 +114,11 @@ doc.text(`Client: ${purchaseOrder.client.nom} ${purchaseOrder.client.prenom}`, 1
 doc.text(`Téléphone: ${purchaseOrder.client.telephone}`, 15, 80);
 doc.text(`Email: ${purchaseOrder.client.email}`, 15, 90);
 
-const enterpriseName = 'Your Enterprise Name';
-const enterpriseAddress = '123 Main Street, City, Country';
+const enterpriseName = 'FINANCIAL DERIVATIVES CONSULTING';
+const enterpriseAddress = '19 RUE DES LILAS, ARGENTEUIL, 95100, France';
 doc.text(enterpriseName, doc.internal.pageSize.width - 15, 70, { align: 'right' });
 doc.text(enterpriseAddress, doc.internal.pageSize.width - 15, 80, { align: 'right' });
-const columns = ['Désignation', 'Description', 'Quantité', 'TVA', 'Prix unitaire'];
+const columns = ['Désignation', 'Description', 'Quantité', 'TVA', 'Prix unitaire(€)'];
 const data = this.listProduit.map((product: any, index: number) => {
   const values = purchaseOrder.quantities.split(',').map((q: string) => parseInt(q));
   const quantity : string = values[index];
@@ -143,17 +155,17 @@ if (purchaseOrder.quantities.includes(',')) {
   const quantityValues = purchaseOrder.quantities.split(',').map((q: string) => parseInt(q));
   
   smallTableData = [
-    ['Montant', `${quantityValues.reduce((sum: number, quantity: string, index: number) => sum + parseInt(quantity) * data[index][4], 0)}`],
-    ['Montant TVA', `${quantityValues.reduce((sum: number, quantity: string, index: number) => sum + parseInt(quantity) * data[index][4] * purchaseOrder.tva, 0)}`],
-    ['Montant TTC', `${quantityValues.reduce((sum: number, quantity: string, index: number) => sum + parseInt(quantity) * data[index][4] * (1 + purchaseOrder.tva), 0)}`],
+    ['Montant (€)', `${quantityValues.reduce((sum: number, quantity: string, index: number) => sum + parseInt(quantity) * data[index][4], 0)}`],
+    ['Montant TVA (€)', `${quantityValues.reduce((sum: number, quantity: string, index: number) => sum + parseInt(quantity) * data[index][4] * purchaseOrder.tva, 0)}`],
+    ['Montant TTC (€)', `${quantityValues.reduce((sum: number, quantity: string, index: number) => sum + parseInt(quantity) * data[index][4] * (1 + purchaseOrder.tva), 0)}`],
   ];
 } else {
   // If there's a single quantity
   const quantity = parseInt(purchaseOrder.quantities);
   smallTableData = [
-    ['Montant', `${quantity * data[0][4]}`],
-    ['Montant TVA', `${quantity * data[0][4] * purchaseOrder.tva}`],
-    ['Montant TTC', `${quantity * data[0][4] * (1 + purchaseOrder.tva)}`],
+    ['Montant (€)', `${quantity * data[0][4]}`],
+    ['Montant TVA (€)', `${quantity * data[0][4] * purchaseOrder.tva}`],
+    ['Montant TTC (€)', `${quantity * data[0][4] * (1 + purchaseOrder.tva)}`],
   ];
 }
 

@@ -66,5 +66,7 @@
     Ajouter
   </button>
   <button (click)="navigateToUpdateClient()" *ngIf="selectedClient">Modifier</button>
+
+  <button (click)="deleteClient()" *ngIf="selectedClient">Supprimer</button>
 </div>
 <router-outlet></router-outlet>

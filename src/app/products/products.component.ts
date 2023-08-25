@@ -47,4 +47,15 @@ export class ProductsComponent implements OnInit{
     this.router.navigateByUrl(`/generate-quotation/${productId}`);
   }
 
+  deleteProduct() {
+    this.http.delete<any>('http://127.0.0.1:8080/api/products/delete/' + this.selectedProduct.id).subscribe(
+      (data) => {
+        console.log("produit suprrimé avec succée " + data);
+      },
+      (error) => {
+        console.error('Error deletting product:', error);
+      }
+    );
+  }
+
 }

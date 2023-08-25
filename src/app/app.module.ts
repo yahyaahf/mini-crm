@@ -19,6 +19,7 @@ import { UpdateQuotationComponent } from './update-quotation/update-quotation.co
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PurchaseOrderComponent } from './purchase-order/purchase-order.component';
 import { InvoicesComponent } from './invoices/invoices.component';
+import { UpdateInvoiceComponent } from './update-invoice/update-invoice.component';
 const routes: Routes = [
   { path: 'add-client', component: AddClientComponent },
   {path: 'update-client/:id',component: UpdateClientComponent},
@@ -30,6 +31,7 @@ const routes: Routes = [
   { path: 'update-quotation/:id', component: UpdateQuotationComponent },
   {path: 'purchaseOrders',component: PurchaseOrderComponent},
   {path: 'invoices',component: InvoicesComponent},
+  { path: 'update-invoice/:id', component: UpdateInvoiceComponent },
   
 ];
 
@@ -46,6 +48,7 @@ const routes: Routes = [
     UpdateQuotationComponent,
     PurchaseOrderComponent,
     InvoicesComponent,
+    UpdateInvoiceComponent,
   ],
   imports: [RouterModule.forRoot(routes), BrowserModule,
     AppRoutingModule, HttpClientModule, BrowserAnimationsModule,

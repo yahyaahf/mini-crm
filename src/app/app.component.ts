@@ -75,6 +75,18 @@ export class AppComponent implements OnInit {
     this.router.navigateByUrl('/invoices');
   }
 
+  deleteClient() {
+    this.http.delete<any>('http://127.0.0.1:8080/api/clients/delete/' + this.selectedClient.id).subscribe(
+      (data) => {
+        console.log("client suprrimé avec succée " );
+      },
+      (error) => {
+        console.error('Error deletting product:', error);
+      }
+    );
+  }
+
+
 
 }
 
